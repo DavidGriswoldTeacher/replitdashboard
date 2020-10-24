@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Repl.It Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="/styles.css">
+</head>
+
+<body>
+    <div id="container">
+        <div id="entryOuter">
+            <div id="showHideContainer"><a href="#" id="showHide" " onclick=" showHideEntries()">—</a><br>
+            </div>
+            <p id="instructions">To use this, simply add the URLs for your repl.it projects on the left, then
+                student
+                names on the right.
+                Probably the easiest option is to have students fill out a google form with this information, then
+                copy
+                and paste from the spreadsheet it creates.</p>
+            <div id="entryHolder">
+                <div class="entry" id="urlEntry">
+                    URLs<br>
+                    <div contenteditable=true class="entryText" id="urls" onpaste="stripPaste(event)"
+                        oninput="updateStudents()"></div>
+                </div>
+                <div class="entry" id="namesEntry">
+                    Names in same order<br>
+                    <div contenteditable=true class="entryText" id="names" onpaste="stripPaste(event)"
+                        oninput="updateStudents()"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script type="text/javascript" src="/index.js"></script>
+</body>
+
+</html>
