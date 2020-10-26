@@ -6,7 +6,7 @@ body {
     display: flex;
     padding: .5em 0;
     flex-wrap: wrap;
-    height: 100vh;
+    height: 50em;
     width: 100%;
     margin-top: 0;
     box-sizing: border-box;
@@ -19,15 +19,18 @@ body {
 
 .studentScreen {
     display: flex;
+    overflow: hidden;
     box-sizing: border-box;
-    max-width: 60em;
-    min-width: 40em;
-    min-height: 95vh;
+    width: 40em;
+    min-height: 50em;
+    min-width: 20em;
+    height: 50em;
+    resize: both;
     border-radius: .5em;
     border: 1px solid black;
     flex-direction: column;
-    background-color: skyblue;
-    flex: 1 1 auto;
+    background-image: url("./resize.png");
+    background-size: 100% 100%;
     padding: 1em;
     margin-bottom: .5em;
     margin-left: .5em;
@@ -40,11 +43,12 @@ body {
 
 .entryText {
     width: 10em;
+    height: 40em;
     background-color: white;
     overflow: scroll;
     white-space: nowrap;
     line-height: 1.5em;
-    height: 80vh;
+    flex: 1 1 auto;
 }
 
 .screenTitle {
