@@ -9,25 +9,60 @@
 <body>
     <div id="container">
         <div id="entryOuter">
-            <div id="showHideContainer"><a href="#" id="showHide" " onclick=" showHideEntries()">—</a><br>
+            <div id="showHideContainer"><a href="#" id="showHide" onclick="showHideEntries()">—</a><br>
             </div>
-            <p id="instructions">To use this, simply add the URLs for your repl.it projects on the left, then
-                student
-                names on the right.
-                See more instructions or report issues on <a
-                    href="https://github.com/DavidGriswoldTeacher/replitdashboard">GitHub</a></p>
+            <div class="inPink" id="instructions">
+                <p>To create a new list, simply add the URLs for your repl.it projects on the left, then
+                    student names on the right. You can save and load names from local storage, but back them up
+                    elsewhere!<br>
+                    See more instructions or report issues on <a
+                        href="https://github.com/DavidGriswoldTeacher/replitdashboard">GitHub</a></p>
+            </div>
+
+
+
+            <p id="refreshAllParagraph">
+                <a href="#" id="refreshAllLink" onclick="refreshAll(event)">Refresh all</a>
+            </p>
             <div id="entryHolder">
                 <div class="entry" id="urlEntry">
                     URLs<br>
-                    <div contenteditable=true class="entryText" id="urls" onpaste="stripPaste(event)"
-                        oninput="updateURLs()"></div>
+                    <div class="entryTextBorder">
+                        <div contenteditable=true class="entryText" id="urls" onpaste="stripPaste(event)"
+                            oninput="updateURLs()"></div>
+                    </div>
                 </div>
                 <div class="entry" id="namesEntry">
                     Names in same order<br>
-                    <div contenteditable=true class="entryText" id="names" onpaste="stripPaste(event)"
-                        oninput="updateNames()"></div>
+                    <div class="entryTextBorder">
+                        <div contenteditable=true class="entryText" id="names" onpaste="stripPaste(event)"
+                            oninput="updateNames()"></div>
+                    </div>
                 </div>
             </div>
+
+            <div class="inPink" id="saveLoadControls">
+                <p>
+                    <label for="saveListName">Save with name: </label>
+                    <input type="text" id="saveListName"></input>
+                    <button id="save" onclick="saveList(event)">Save</button>
+                </p>
+
+                <p>
+                    <label for="loadListName">Existing list: </label>
+                    <select id="loadListName" name="loadListName"></select>
+                    <button id="load" onclick="loadList(event)">Load</button>
+                    <button id="delete" onclick="deleteList(event)">Delete</button>
+                </p>
+
+                <p>
+                    <button id="deleteAllButton" onclick="deleteAll()">Delete All Lists</button>
+                </p>
+
+            </div>
+
+
+
         </div>
 
     </div>

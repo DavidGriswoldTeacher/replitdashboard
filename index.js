@@ -1,4 +1,4 @@
-
+window.onload = fillSelectBox;
 
 function stripPaste(e) {
     e.preventDefault();
@@ -28,7 +28,7 @@ function updateNames(e) {
             const outerContainer = document.getElementById("container");
             outerContainer.insertAdjacentHTML("beforeend", `
             <div class="studentScreen" id="screenContainer${i + 1}">
-                <p class="screenTitle" id="title${i + 1}">${names[i]}</p>
+                <p class="screenTitle"><span id="title${i + 1}">${names[i]} </span><a href="#" onclick="refreshFrame(event, ${i + 1})">Refresh</a></p>
             </div>`)
             let container = document.getElementById(`screenContainer${i + 1}`);
             container.insertAdjacentHTML("beforeend", "<p class=\"error\">You do not yet have a URL for this name.</p>");
@@ -61,13 +61,13 @@ function updateURLs(e) {
                 continue; //skip to the next run of the loop
             } else {
                 //since the url is wrong, lets just start over
-                container.innerHTML = (` <p class="screenTitle" id="title${i + 1}">${name}</p>`)
+                container.innerHTML = (` <p class="screenTitle"><span id="title${i + 1}">${name} </span><a href="#" onclick="refreshFrame(event, ${i + 1})">Refresh</a></p>`)
             }
         } else {
 
             outerContainer.insertAdjacentHTML("beforeend", `
             <div class="studentScreen" id="screenContainer${i + 1}">
-                <p class="screenTitle" id="title${i + 1}">${names[i]}</p>
+                <p class="screenTitle"><span id="title${i + 1}">${name} </span><a href="#" onclick="refreshFrame(event, ${i + 1})">Refresh</a></p>
             </div>`)
             container = document.getElementById(`screenContainer${i + 1}`);
         }
@@ -90,17 +90,105 @@ function updateURLs(e) {
 
 
 function showHideEntries() {
-    var showHide = document.getElementById("showHide");
-    var entryHolder = document.getElementById("entryHolder");
-    var inst = document.getElementById("instructions");
+    let showHide = document.getElementById("showHide");
+    let entryHolder = document.getElementById("entryHolder");
+    let inst = document.getElementById("instructions");
+    let rap = document.getElementById("refreshAllParagraph");
+    let slc = document.getElementById("saveLoadControls");
     if (showHide.innerText === "—") {
 
         entryHolder.style.display = "none";
         inst.style.display = "none";
         showHide.innerText = "+";
+        rap.style.writingMode = "vertical-lr";
+        slc.style.display = "none";
+
     } else {
         entryHolder.style.display = "flex";
         inst.style.display = "block";
         showHide.innerText = "—";
+        rap.style.writingMode = "";
+        slc.style.display = "block";
     }
+}
+
+function refreshFrame(e, n) {
+    e.preventDefault();
+    let ctr = document.getElementById(`screenContainer${n}`);
+    let ifr = ctr.querySelector("iframe");
+    ifr.parentNode.replaceChild(ifr.cloneNode(), ifr);
+
+}
+
+function refreshAll(e) {
+    let alliFrs = document.querySelectorAll("iframe");
+    for (ifr of alliFrs) {
+        ifr.parentNode.replaceChild(ifr.cloneNode(), ifr);
+    }
+}
+
+function saveList(event) {
+    let listName = document.getElementById("saveListName").value;
+    let URLs = document.getElementById("urls").innerText;
+    let names = document.getElementById("names").innerText;
+
+    localStorage.setItem("replit-list-" + listName,
+        JSON.stringify({
+            urls: URLs,
+            names: names,
+        }));
+    fillSelectBox();
+}
+
+function loadList(event) {
+    let urls = document.getElementById("urls");
+    let names = document.getElementById("names");
+    let listName = document.getElementById("loadListName").value;
+    if (urls.innerText !== "" || names.innerText !== "") {
+        let ret = confirm(`Are you sure you want to load list ${listName}? This will overwrite the current names and URLs.`);
+        if (ret == false) {
+            return;
+        }
+    }
+
+    let item = JSON.parse(localStorage.getItem("replit-list-" + listName));
+    document.getElementById("urls").innerText = item.urls;
+    document.getElementById("names").innerText = item.names;
+    updateNames();
+    updateURLs();
+}
+
+function deleteList(event) {
+    let urls = document.getElementById("urls");
+    let names = document.getElementById("names");
+    let listName = document.getElementById("loadListName").value;
+    let ret = confirm(`Are you sure you want to delete the list ${listName}?`);
+    if (ret === true) {
+        localStorage.removeItem("replit-list-" + listName);
+        fillSelectBox();
+    }
+}
+
+function deleteAll() {
+    let ret = confirm(`Are you sure you want to delete ALL of your saved lists? This is not reversible!`);
+    if (ret === false) return;
+    Object.keys(localStorage).forEach(key => {
+        if (key.substring(0, 12) === "replit-list-") {
+            localStorage.removeItem(key);
+        }
+    });
+    fillSelectBox();
+}
+
+function fillSelectBox() {
+    let sel = document.getElementById("loadListName");
+    sel.innerHTML = "";
+    Object.keys(localStorage).forEach(key => {
+        if (key.substring(0, 12) === "replit-list-") {
+            let name = key.substring(12);
+            sel.insertAdjacentHTML("beforeend",
+                `<option value="${name}">${name}</option>`);
+        }
+    });
+
 }

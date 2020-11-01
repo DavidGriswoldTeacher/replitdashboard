@@ -13,8 +13,8 @@ body {
 }
 
 .entry {
-    padding: 1em;
-    margin-bottom: .5em;
+    padding: 1rem;
+    margin-bottom: .5rem;
 }
 
 .studentScreen {
@@ -39,22 +39,32 @@ body {
 .embed {
     width: 100%;
     flex: 1 1 auto;
+    box-shadow: 0 0 .2rem black;
+    border-radius: .5rem;
+}
+
+.entryTextBorder {
+    border: 1px solid darkslategray;
+    border-radius: .5rem;
+    overflow: hidden;
+    flex: 1 1 auto;
 }
 
 .entryText {
     width: 10em;
-    height: 40em;
+    height: 20em;
     background-color: white;
-    overflow: scroll;
+    overflow: auto;
     white-space: nowrap;
     line-height: 1.5em;
-    flex: 1 1 auto;
+    padding-left: .2rem;
 }
 
 .screenTitle {
+    position: relative;
     margin-top: 0;
     margin-bottom: .5em;
-    margin: 0 auto .5em auto;
+    text-align: center;
     font-size: 1.2em;
     font-weight: bold;
 }
@@ -64,6 +74,7 @@ body {
 }
 
 #entryOuter {
+    margin-top: 0;
     background-color: pink;
     margin-bottom: .5em;
     border-radius: .5em;
@@ -100,9 +111,59 @@ body {
 }
 
 #instructions {
+    border-bottom: 1px dashed black;
+}
+
+.inPink {
     width: 22rem;
     margin-left: 1rem;
     margin-right: 1rem;
     text-align: justify;
     font-size: .8rem;
+}
+
+.screenTitle a {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    font-size: 50%;
+}
+
+#refreshAllParagraph {
+    text-align: center;
+    margin-bottom: 0;
+    margin-top: 1rem;
+}
+
+#refreshAllLink {
+    font-size: 80%;
+    margin-left: auto;
+}
+
+#saveLoadControls {
+    border: 1px darkslategray solid;
+    padding: 0 1rem;
+    box-sizing: border-box;
+    margin-bottom: 1rem;
+    border-radius: 1rem;
+}
+
+#saveLoadControls p {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+#saveLoadControls p input, #saveLoadControls p select {
+    flex: 1 1 auto;
+    margin-left: .1rem;
+    margin-right: .1rem;
+}
+
+#saveLoadControls p button {
+    flex: 0;
+    margin-left: .1rem;
+    margin-right: .1rem;
+    white-space: nowrap;
 }
