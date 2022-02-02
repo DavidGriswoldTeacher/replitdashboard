@@ -156,6 +156,7 @@ function loadList(event) {
     var urls = document.getElementById("urls");
     var names = document.getElementById("names");
     var listName = document.getElementById("loadListName").value;
+    var saveBox = document.getElementById("saveListName");
     if (urls.innerText !== "" || names.innerText !== "") {
         var ret = confirm("Are you sure you want to load list " + listName + "? This will overwrite the current names and URLs.");
         if (ret == false) {
@@ -166,6 +167,7 @@ function loadList(event) {
     var item = JSON.parse(itemText);
     urls.innerText = item.urls;
     names.innerText = item.names;
+    saveBox.value = listName;
     updateNames();
     updateURLs();
 }

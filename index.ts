@@ -182,6 +182,7 @@ function loadList(event?: Event) {
     let urls = document.getElementById("urls") as HTMLElement;
     let names = document.getElementById("names") as HTMLElement;
     let listName = (document.getElementById("loadListName") as HTMLInputElement).value;
+    let saveBox = document.getElementById("saveListName") as HTMLInputElement;
     if (urls.innerText !== "" || names.innerText !== "") {
         let ret = confirm(`Are you sure you want to load list ${listName}? This will overwrite the current names and URLs.`);
         if (ret == false) {
@@ -192,6 +193,7 @@ function loadList(event?: Event) {
     let item = JSON.parse(itemText);
     urls.innerText = item.urls;
     names.innerText = item.names;
+    saveBox.value = listName;
     updateNames();
     updateURLs();
 }
